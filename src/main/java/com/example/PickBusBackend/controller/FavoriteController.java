@@ -46,9 +46,10 @@ public class FavoriteController {
 
         String stopId = body.get("busStopId");
         String lineNo = body.get("lineNo");
-        String stopName = body.get("busStopName"); // ✅ 추가
+        String stopName = body.get("busStopName");
+        String nextStopName = body.get("nextStopName");
 
-        favoriteService.addFavorite(user, stopId, lineNo, stopName); // ✅ 호출 변경
+        favoriteService.addFavorite(user, stopId, lineNo, stopName, nextStopName); // ✅ 호출 변경
         return ResponseEntity.ok("즐겨찾기 등록 완료");
     }
 
@@ -64,14 +65,6 @@ public class FavoriteController {
         return ResponseEntity.ok("즐겨찾기 해제 완료");
     }
 
-//    @PostMapping
-//    public ResponseEntity<?> selectDirection(
-//            @RequestParam String busStopId,
-//            @RequestParam String direction,
-//
-//
-//    ){
-//        return
-//    }
+
 
 }

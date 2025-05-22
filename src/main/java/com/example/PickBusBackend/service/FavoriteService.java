@@ -26,13 +26,14 @@ public class FavoriteService {
     }
 
     @Transactional
-    public void addFavorite(User user, String busStopId, String lineNo, String busStopName) {
+    public void addFavorite(User user, String busStopId, String lineNo, String busStopName, String nextStopName) {
         Favorite favorite = new Favorite();
         favorite.setUser(user);
         favorite.setBusStopId(busStopId);
         favorite.setLineNo(lineNo);
         favorite.setBusStopName(busStopName);
-        System.out.println("🧪 저장 전 체크: " + favorite.getUser().getUsername());
+        //System.out.println(" 저장 전 체크: " + favorite.getUser().getUsername());
+        favorite.setNextStopName(nextStopName);
         favoriteRepository.save(favorite);
     }
 

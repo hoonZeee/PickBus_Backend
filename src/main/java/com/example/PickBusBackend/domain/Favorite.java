@@ -30,4 +30,8 @@ public class Favorite {
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private java.sql.Timestamp createdAt;
+
+    @Column(name = "next_stop_name", nullable = false)
+    private String nextStopName;
+
 }

@@ -40,7 +40,7 @@ public class FavoriteServiceTest {
 
     @Test
     void testAddFavorite_Success() {
-        favoriteService.addFavorite(testUser, "501060000", "연제구3", "수정역");
+        favoriteService.addFavorite(testUser, "501060000", "연제구3", "수정역", "하단");
 
         List<Favorite> list = favoriteRepository.findByUser(testUser);
         assertEquals(1, list.size());
@@ -48,16 +48,16 @@ public class FavoriteServiceTest {
 
     @Test
     void testAddFavorite_Duplicate() {
-        favoriteService.addFavorite(testUser, "501060000", "연제구3", "수정역");
+        favoriteService.addFavorite(testUser, "501060000", "연제구3", "수정역", "하단");
 
         assertThrows(DataIntegrityViolationException.class, () -> {
-            favoriteService.addFavorite(testUser, "501060000", "연제구3", "수정역");
+            favoriteService.addFavorite(testUser, "501060000", "연제구3", "수정역", "하단");
         });
     }
 
     @Test
     void testRemoveFavorite_Success() {
-        favoriteService.addFavorite(testUser, "501060000", "연제구3","수정역");
+        favoriteService.addFavorite(testUser, "501060000", "연제구3","수정역", "하단");
         favoriteService.removeFavorite(testUser, "501060000", "연제구3");
 
         List<Favorite> list = favoriteRepository.findByUser(testUser);
