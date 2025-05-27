@@ -56,4 +56,36 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result);
         }
     }
+
+
+    //회원탈퇴
+    @DeleteMapping("/user")
+    public ResponseEntity<String> deleteUser(@RequestHeader("Authorization") String token) {
+        String jwt = token.replace("Bearer ", "");
+        String username = jwtUtil.validateToken(jwt);
+
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 토큰입니다.");
+        }
+
+        userService.deleteUserAndFavorites(username);
+        return ResponseEntity.ok("회원 탈퇴 완료");
+    }
+
+
+    //토큰 검증
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        String username = jwtUtil.validateToken(token);
+
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+        }
+
+        return ResponseEntity.ok("Valid token");
+    }
+
+
+
 }

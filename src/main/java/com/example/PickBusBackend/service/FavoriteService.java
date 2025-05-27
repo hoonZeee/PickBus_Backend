@@ -4,7 +4,6 @@ package com.example.PickBusBackend.service;
 import com.example.PickBusBackend.domain.Favorite;
 import com.example.PickBusBackend.domain.User;
 import com.example.PickBusBackend.repository.FavoriteRepository;
-import com.example.PickBusBackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +13,11 @@ import java.util.List;
 public class FavoriteService {
 
     private final FavoriteRepository favoriteRepository;
-    private final UserRepository userRepository;
 
-    public FavoriteService(FavoriteRepository favoriteRepository, UserRepository userRepository) {
+
+    public FavoriteService(FavoriteRepository favoriteRepository) {
         this.favoriteRepository = favoriteRepository;
-        this.userRepository = userRepository;
+
     }
 
     public List<Favorite> getFavorites(User user) {
@@ -40,6 +39,11 @@ public class FavoriteService {
     @Transactional
     public void removeFavorite(User user, String busStopId, String lineNo) {
         favoriteRepository.deleteByUserAndBusStopIdAndLineNo(user, busStopId, lineNo);
+    }
+
+    @Transactional
+    public void deleteAllFavoritesByUserId(Long userId) {
+        favoriteRepository.deleteAllByUserId(userId);
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.PickBusBackend.service;
 
 import com.example.PickBusBackend.domain.User;
+import com.example.PickBusBackend.repository.FavoriteRepository;
 import com.example.PickBusBackend.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,12 +18,13 @@ public class UserServiceTest {
     private UserRepository userRepository;
     private UserService userService;
     private PasswordEncoder passwordEncoder;
+    private FavoriteService favoriteService;
 
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
         passwordEncoder = mock(PasswordEncoder.class);
-        userService = new UserService(userRepository, passwordEncoder);
+        userService = new UserService(userRepository, passwordEncoder, favoriteService);
     }
 
     @Test

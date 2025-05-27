@@ -42,7 +42,7 @@ public class FavoriteController {
         String token = authHeader.replace("Bearer ", "");
         String username = jwtUtil.validateToken(token);
         User user = userService.getByUsername(username);
-        //여기 direction 받아서 한줄추가하고
+
 
         String stopId = body.get("busStopId");
         String lineNo = body.get("lineNo");

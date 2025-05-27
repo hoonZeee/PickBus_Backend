@@ -1,6 +1,7 @@
 package com.example.PickBusBackend.service;
 
 import com.example.PickBusBackend.domain.User;
+import com.example.PickBusBackend.repository.FavoriteRepository;
 import com.example.PickBusBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,13 +14,19 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FavoriteService favoriteService;
+
 
     //해싱비밀번호
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, FavoriteService favoriteService ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.favoriteService = favoriteService;
+
     }
+
+
 
     public String signup(String username, String password, String email) {
         if (userRepository.findByUsername(username).isPresent()) {
@@ -56,6 +63,15 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("❌ 유저를 찾을 수 없습니다."));
     }
+
+
+    public void deleteUserAndFavorites(String username) {
+        User user = getByUsername(username);
+        favoriteService.deleteAllFavoritesByUserId(user.getId());
+        userRepository.deleteById(user.getId());
+    }
+
+
 
 
 
