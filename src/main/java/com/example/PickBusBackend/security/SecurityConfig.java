@@ -32,7 +32,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login", "/api/signup").permitAll()
+                        .requestMatchers("/api/login", "/api/signup", "/api/health-check").permitAll()
                         .requestMatchers(HttpMethod.GET, "/busstops").permitAll() // 버스 검색 관련
                         .requestMatchers(HttpMethod.POST, "/api/favorites").authenticated() // 인증 요청 보안
                         .requestMatchers(HttpMethod.GET, "/api/favorites").authenticated()

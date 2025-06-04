@@ -23,10 +23,9 @@ CREATE TABLE favorites (
                            CONSTRAINT uniq_favorite UNIQUE (user_id, bus_stop_id, bus_line_no)
 );
 
-CREATE TABLE bus_stop (
-                          id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                          bus_stop_id VARCHAR(20) NOT NULL,
-                          bus_stop_name VARCHAR(255) NOT NULL,
-                          line_no VARCHAR(20) NOT NULL,
-                          next_stop_name VARCHAR(255) NOT NULL
+CREATE TABLE busan_bus_stop (
+                                stop_id         VARCHAR(255) NOT NULL,
+                                stop_name       VARCHAR(255),
+                                next_stop_name  VARCHAR(255),
+                                PRIMARY KEY (stop_id)
 );
