@@ -17,7 +17,7 @@ public class Favorite {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;  // ✅ 실제 user_id 외래키 연결
+    private User user;
 
     @Column(name = "bus_stop_id", nullable = false)
     private String busStopId;
