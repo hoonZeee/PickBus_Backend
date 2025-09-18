@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    container_name: pickbus-app
+    ports:
+    - "8080:8080"
+    depends_on:
+    - mysql
+    - redis
+    environment:
+    - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
+    - SPRING_DATASOURCE_USERNAME=root
+    - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    - SPRING_REDIS_HOST=redis
+    - SPRING_REDIS_PORT=6379
+    - JWT_SECRET=${JWT_SECRET}
+    - JWT_ACCESS_EXPIRATION=${JWT_ACCESS_EXPIRATION}
+    - JWT_REFRESH_EXPIRATION=${JWT_REFRESH_EXPIRATION}
+
+  mysql:
+    image: mysql:8
+    container_name: pickbus-mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    - MYSQL_DATABASE=${MYSQL_DATABASE}
+    ports:
+    - "33066:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+
+  redis:
+    image: redis:7
+    container_name: pickbus-redis
+    ports:
+    - "6379:6379"
+
+volumes:
+  mysql-data:
