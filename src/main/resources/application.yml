@@ -10,8 +10,8 @@ spring:
       password: ${REDIS_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: create
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -23,6 +23,10 @@ jwt:
     expiration: ${JWT_ACCESS_EXPIRATION}
   refresh:
     expiration: ${JWT_REFRESH_EXPIRATION}
+
+encrypt:
+  email:
+    secret: ${ENCRYPT_EMAIL_SECRET}
 
 
 server:

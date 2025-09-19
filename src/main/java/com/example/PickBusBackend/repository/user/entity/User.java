@@ -21,6 +21,7 @@ public class User {
     private Long id;
 
     private String username;
+    private String nickname;
     private String email;
     private String password;
 
@@ -38,10 +39,11 @@ public class User {
     private LocalDateTime updatedAt;
 
 
-    public static User create (String username, String email, String password, Role role, Region region){
+    public static User create (String username, String nickname, String email, String password, Role role, Region region){
         return new User(
                 null,
                 username,
+                nickname,
                 email,
                 password,
                 role,

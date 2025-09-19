@@ -23,16 +23,19 @@ public class UserHistory {
 
     private String username;
 
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
     private Action action;
 
     private LocalDateTime createdAt;
     
-    public  static UserHistory create(Long userId, String username, Action action) {
+    public  static UserHistory create(Long userId, String username,String nickname, Action action) {
         return new UserHistory(
                 null,
                 userId,
                 username,
+                nickname,
                 action,
                 LocalDateTime.now()
         );
