@@ -12,9 +12,12 @@ import lombok.*;
 public class BusanBusStop {
 
     @Id
-    private Long stopId;
-
+    private String stopId;
     private String busStopName;
     private String nextStopName;
+
+    public static BusanBusStop of(String stopId, String busStopName, String nextStopName) {
+        return new BusanBusStop(stopId, busStopName, nextStopName);
+    }
 
 }

@@ -13,7 +13,6 @@ public class SeoulBusStop {
 
     @Id
     private String stopId;
-
     private String busStopName;
     private String nextStopName;
 

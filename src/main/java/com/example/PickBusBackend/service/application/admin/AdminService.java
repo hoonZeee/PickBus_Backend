@@ -1,4 +1,4 @@
-package com.example.PickBusBackend.service.application.user;
+package com.example.PickBusBackend.service.application.admin;
 
 import com.example.PickBusBackend.Controller.user.dto.request.LocalLoginRequestDto;
 import com.example.PickBusBackend.Controller.user.dto.request.LocalSignUpRequestDto;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AdminService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -30,7 +30,6 @@ public class UserService {
     private final TokenService tokenService;
     private final UserHistoryRepository userHistoryRepository;
     private final JwtProvider jwtProvider;
-
 
     @Transactional
     public LocalSignUpResponseDto signUp(LocalSignUpRequestDto request) {
@@ -51,55 +50,31 @@ public class UserService {
 
         String encodePassword = passwordEncoder.encode(request.getPassword());
 
-
-        User user = User.create(
+        User admin = User.create(
                 request.getUsername(),
                 request.getNickname(),
                 encryptedEmail,
                 encodePassword,
-                Role.USER,
+                Role.ADMIN,
                 request.getRegion()
         );
 
-        userRepository.save(user);
+        userRepository.save(admin);
 
         userHistoryRepository.save(
                 UserHistory.create(
-                        user.getId(),
-                        user.getUsername(),
-                        user.getNickname(),
+                        admin.getId(),
+                        admin.getUsername(),
+                        admin.getNickname(),
                         Action.SIGNUP
                 )
         );
 
-        String accessToken = tokenService.generateAccessToken(user);
-        String refreshToken = tokenService.generateRefreshToken(user);
+        String accessToken = tokenService.generateAccessToken(admin);
+        String refreshToken = tokenService.generateRefreshToken(admin);
 
-        return LocalSignUpResponseDto.from(user, accessToken, refreshToken);
+        return LocalSignUpResponseDto.from(admin, accessToken, refreshToken);
     }
 
-    @Transactional
-    public LocalLoginResponseDto login(LocalLoginRequestDto request) {
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(()-> new UserException(UserErrorCode.USER_NOT_FOUND));
-
-        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new UserException(UserErrorCode.INVALID_PASSWORD);
-        }
-
-        userHistoryRepository.save(
-                UserHistory.create(
-                        user.getId(),
-                        user.getUsername(),
-                        user.getNickname(),
-                        Action.LOGIN
-                )
-        );
-
-        String accessToken = jwtProvider.generateAccessToken(user);
-        String refreshToken  = jwtProvider.generateRefreshToken(user);
-
-        return LocalLoginResponseDto.from(user, accessToken, refreshToken);
-    }
 
 }

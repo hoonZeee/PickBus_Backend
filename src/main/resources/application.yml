@@ -28,6 +28,10 @@ encrypt:
   email:
     secret: ${ENCRYPT_EMAIL_SECRET}
 
+busan:
+  api:
+    key: ${BUSAN_API_KEY}
+
 
 server:
   port: 8080

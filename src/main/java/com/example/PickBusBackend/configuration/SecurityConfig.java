@@ -58,9 +58,12 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login",
+                        .requestMatchers(
                                 "/swagger-ui/**",
+                                "/api/health/**",
                                 "/api/users/signup",
+                                "/api/users/login",
+                                "/api/admin/signup",
                                 "/api/token/**",
                                 "/v3/api-docs/**")
                         .permitAll()
