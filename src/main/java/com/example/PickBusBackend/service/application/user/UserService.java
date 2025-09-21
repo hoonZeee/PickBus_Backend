@@ -102,4 +102,19 @@ public class UserService {
         return LocalLoginResponseDto.from(user, accessToken, refreshToken);
     }
 
+    @Transactional
+    public void deleteUser(User user) {
+        userHistoryRepository.save(
+                UserHistory.create(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getNickname(),
+                        Action.DELETE
+                )
+        );
+
+        userRepository.delete(user); // 하드딜리트
+    }
+
+
 }

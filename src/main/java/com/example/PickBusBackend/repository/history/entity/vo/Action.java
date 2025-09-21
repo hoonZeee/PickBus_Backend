@@ -4,6 +4,7 @@ public enum Action {
     SIGNUP,
     LOGIN,
     ACTIVE,
+    DELETE,
     DORMANT,
     BAN,
     WITHDRAWN

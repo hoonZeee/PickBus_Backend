@@ -13,7 +13,8 @@ public enum UserErrorCode implements ErrorCode {
     LOGIN_ID_REQUIRED(HttpStatus.BAD_REQUEST, "아이디 또는 전화번호를 입력해주세요."),
     ACCOUNT_INACTIVE(HttpStatus.FORBIDDEN, "비활성화된 계정입니다."),
     FORBIDDEN(HttpStatus.FORBIDDEN, "권한이 없습니다."),
-    ALREADY_IN_STATUS(HttpStatus.BAD_REQUEST, "이미 해당 상태입니다.")
+    ALREADY_IN_STATUS(HttpStatus.BAD_REQUEST, "이미 해당 상태입니다."),
+    ALREADY_IN_FAVORITE(HttpStatus.BAD_REQUEST, "이미 즐겨찾기 되어있는 항목입니다.")
 
     ;
 

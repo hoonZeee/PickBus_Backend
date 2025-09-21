@@ -65,6 +65,7 @@ public class SecurityConfig {
                                 "/api/users/login",
                                 "/api/admin/signup",
                                 "/api/token/**",
+                                "/api/bus-stops/**",
                                 "/v3/api-docs/**")
                         .permitAll()
                         .anyRequest().authenticated()
