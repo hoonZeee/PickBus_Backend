@@ -8,6 +8,10 @@ spring:
       host: ${SPRING_REDIS_HOST}
       port: ${SPRING_REDIS_PORT}
       password: ${REDIS_PASSWORD}
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000
   jpa:
     hibernate:
       ddl-auto: update

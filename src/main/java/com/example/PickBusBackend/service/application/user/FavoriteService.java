@@ -8,6 +8,8 @@ import com.example.PickBusBackend.repository.user.FavoriteRepository;
 import com.example.PickBusBackend.repository.user.entity.Favorite;
 import com.example.PickBusBackend.repository.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
 
     @Transactional
+    @CacheEvict(value = "favorites", key = "#user.id")
     public FavoriteResponseDto addFavorite(User user, FavoriteCreateRequestDto request) {
         if(user == null) {
             throw new UserException(UserErrorCode.USER_NOT_FOUND);
@@ -48,6 +51,7 @@ public class FavoriteService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "favorites", key = "#user.id")
     public List<FavoriteResponseDto> getFavorites(User user) {
         List<Favorite> list = favoriteRepository.findAllByUser(user);
         return list.stream()
@@ -57,6 +61,7 @@ public class FavoriteService {
 
 
     @Transactional
+    @CacheEvict(value = "favorites", key = "#user.id")
     public void deleteFavorite(User user, Long favoriteId) {
         Favorite favorite = favoriteRepository.findById(favoriteId)
                 .orElseThrow(() -> new IllegalArgumentException("즐겨찾기를 찾을 수 없습니다."));
@@ -69,6 +74,7 @@ public class FavoriteService {
     }
 
     @Transactional
+    @CacheEvict(value = "favorites", key = "#user.id")
     public void deleteByStopIdAndLineNo(User user, String stopId, String busLineNo) {
         Favorite favorite = favoriteRepository.findByUserAndStopIdAndBusLineNo(user, stopId, busLineNo)
                 .orElseThrow(() -> new IllegalArgumentException("해당 즐겨찾기를 찾을 수 없습니다."));

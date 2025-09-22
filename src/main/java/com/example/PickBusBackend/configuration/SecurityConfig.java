@@ -66,6 +66,7 @@ public class SecurityConfig {
                                 "/api/admin/signup",
                                 "/api/token/**",
                                 "/api/bus-stops/**",
+                                "/api/favorites/dummy-insert",
                                 "/v3/api-docs/**")
                         .permitAll()
                         .anyRequest().authenticated()
