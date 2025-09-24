@@ -1,5 +1,6 @@
 package com.example.PickBusBackend.configuration;
 
+import com.example.PickBusBackend.security.filter.IpRateLimitFilter;
 import com.example.PickBusBackend.security.jwt.JwtAuthenticationFilter;
 import com.example.PickBusBackend.security.jwt.JwtAuthorizationFilter;
 import com.example.PickBusBackend.security.jwt.JwtProvider;
@@ -71,6 +72,7 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(new IpRateLimitFilter(), UsernamePasswordAuthenticationFilter.class)
 
                 .addFilter(jwtAuthenticationFilter)
                 .addFilterBefore(new JwtAuthorizationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
