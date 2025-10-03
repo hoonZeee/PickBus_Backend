@@ -9,7 +9,7 @@ services:
     - mysql
     - redis
     environment:
-    - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
+    - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul
     - SPRING_DATASOURCE_USERNAME=root
     - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
     - SPRING_REDIS_HOST=redis
@@ -27,6 +27,7 @@ services:
     environment:
     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     - MYSQL_DATABASE=${MYSQL_DATABASE}
+    - TZ=Asia/Seoul
     ports:
     - "33066:3306"
     volumes:
