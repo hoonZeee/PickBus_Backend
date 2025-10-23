@@ -3,7 +3,7 @@
 ## 개발 환경
 
 * Java 17
-* Architecture: DDD (Domain-Driven Design)
+* Architecture: Layered 
 
 ## 개인정보 관리
 * PasswordEncoder를 이용한 비밀번호 Hash 처리
@@ -50,5 +50,4 @@ docker-compose up -d --build
 * Authentication: `hasRole('ADMIN')` 기반 권한 부여
 
 ## 프론트엔드 연동
-
 * iOS (Swift) 클라이언트에서 JWT 기반 인증 연동

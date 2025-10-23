@@ -27,6 +27,6 @@ public class AdminController {
     @GetMapping("/check")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> checkAdminAccess() {
-        return ResponseEntity.ok("✅ 어드민 권한 확인 완료");
+        return ResponseEntity.ok("어드민 권한 확인 완료");
     }
 }

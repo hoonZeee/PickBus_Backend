@@ -41,5 +41,45 @@ services:
     ports:
     - "6379:6379"
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.0
+    container_name: pickbus-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.0
+    container_name: pickbus-kibana
+    ports:
+       - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  logstash:
+      image: docker.elastic.co/logstash/logstash:8.13.0
+      container_name: pickbus-logstash
+      ports:
+        - "5044:5044"
+      volumes:
+        - ./logstash/pickbus.conf:/usr/share/logstash/pipeline/logstash.conf
+      depends_on:
+        - elasticsearch
+
+  filebeat:
+      image: docker.elastic.co/beats/filebeat:8.13.0
+      container_name: pickbus-filebeat
+      user: root
+      volumes:
+        - ./logs:/logs
+        - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      depends_on:
+        - logstash
+
+
 volumes:
   mysql-data:
